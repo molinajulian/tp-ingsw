@@ -1,11 +1,15 @@
-pipeline {
-agent any
-stages {
-stage('Build') {
-steps {
-    git pull origin master
-    gradle build
-    java -jar gradle/wrapper/gradle-wrapper.jar
-}
-}
+node {
+   stage('Build') {
+      git 'https://github.com/molinajulian/tp-ingsw'
+      sh 'cd tp-ingsw'
+      sh 'git pull origin master'
+      sh './gradlew build'
+   }
+   stage('Test') {
+      sh './gradlew test'
+   }
+   stage('Validate') {
+   }
+   stage('Deploy') {
+   }
 }
